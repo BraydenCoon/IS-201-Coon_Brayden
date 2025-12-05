@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Brayden’s Hunting Scratch Page</title>
+
+    <!-- Scratch-only stylesheet -->
+    <link rel="stylesheet" href="css/scratchstyles.css">
+</head>
+
+<body>
+
+    <header id="top">
+        <h1>My Scratch Page</h1>
+        <p>A page about hunting, archery, and the outdoors.</p>
+
+        <nav>
+            <a href="index.html">Back to Professional Site</a>
+        </nav>
+    </header>
+
+    <hr>
+
+    <!-- 🔥 Table of Contents / On-Page Anchors -->
+    <nav id="toc">
+        <h2>Jump To:</h2>
+        <ul>
+            <li><a href="#hunts">My Favorite Hunts</a></li>
+            <li><a href="#gear">Gear I Use</a></li>
+            <li><a href="#video">Hunting Video</a></li>
+            <li><a href="#tableau">Hunting Data Graph</a></li>
+        </ul>
+    </nav>
+
+    <hr>
+
+    <!-- ⭐ SECTION 1 -->
+    <section id="hunts">
+        <h2>My Favorite Hunts</h2>
+        <p>
+            Hunting has always been a part of who I am. Here are a few of my favorite hunt types:
+        </p>
+        <ol>
+            <li>Elk hunting in the Utah mountains</li>
+            <li>Mule deer spot-and-stalk</li>
+            <li>Waterfowl at sunrise</li>
+            <li>Colorado archery elk</li>
+            <li>Early-season scouting trips</li>
+        </ol>
+    </section>
+
+    <hr>
+
+<!-- SECTION 2 – VIDEO + PHOTO SIDE BY SIDE -->
+<section id="video">
+    <div class="two-column">
+        
+        <!-- LEFT SIDE – THE VIDEO -->
+        <div class="left">
+            <h2>My Hunting Video</h2>
+            <iframe width="560" height="315"
+                src="https://www.youtube.com/embed/KO_rDIvmja8"
+                title="YouTube video player"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen>
+            </iframe>
+        </div>
+
+        <!-- RIGHT SIDE – YOUR ELK PICTURE -->
+        <div class="right">
+            <h2>My Favorite Trail Camera Picture</h2>
+            <img src="images/elk_with_pond.jpeg" alt="Elk by the pond" class="side-photo">
+        </div>
+
+    </div>
+    <hr>
+
+<section id="app-link">
+    <h2>Try My Elk Number Game</h2>
+    <p>
+        Test your luck and see if you can guess the secret elk tag number.
+        <a href="elk-game.html">Play the Elk Number Guessing Game</a>.
+    </p>
+</section>
+
+</section>
+
+
+    <hr>
+
+    <!-- ⭐ SECTION 4 — TABLEAU -->
+    <section id="tableau">
+        <h2>Hunting Data Graph</h2>
+
+        <div class='tableauPlaceholder' id='viz1701745029967' style='position: relative'>
+            <noscript>
+                <a href='#'>
+                    <img alt='Dashboard' src='images/elk_with_pond.jpeg' style='border: none' />
+                </a>
+            </noscript>
+            <object class='tableauViz' style='display:none;'>
+                <param name='host_url' value='https://public.tableau.com/' />
+                <param name='embed_code_version' value='3' />
+                <param name='path' value='views/ElkHuntingStats1940-2011/Dashboard9' />
+                <param name='toolbar' value='no' />
+                <param name='static_image' value='https://public.tableau.com/static/images/El/ElkHuntingStats1940-2011/Dashboard9/1.png' />
+            </object>
+        </div>
+
+        <script type='text/javascript'>
+            var divElement = document.getElementById('viz1701745029967');
+            var vizElement = divElement.getElementsByTagName('object')[0];
+            vizElement.style.width='100%';
+            vizElement.style.height='650px';
+
+            var scriptElement = document.createElement('script');
+            scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
+            vizElement.parentNode.insertBefore(scriptElement, vizElement);
+        </script>
+    </section>
+
+    <hr>
+
+    <!-- ⭐ BACK TO TOP -->
+    <p><a href="#top">Back to top ↑</a></p>
+
+</body>
+
+</html>

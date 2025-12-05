@@ -1,0 +1,78 @@
+/* Background color (or choose an image) */
+body {
+    background-color: #f3efe7;      /* light tan / hunting theme */
+    margin: 0;
+    padding: 20px;
+    font-family: 'Georgia', serif;  /* required font family */
+    color: #2e2b22;                 /* required font color */
+}
+
+/* Style headers */
+h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    color: #4a3e2f;                 /* darker hunting brown */
+}
+
+h2 {
+    color: #5a4733;
+    margin-top: 40px;
+}
+
+/* Style links */
+a {
+    color: #8b5e34;
+    font-weight: bold;
+}
+
+a:hover {
+    color: #b87a4b;
+}
+
+/* Image styling */
+img {
+    display: block;
+    margin: 20px auto;
+    border-radius: 10px;
+    border: 3px solid #8b5e34;
+}
+
+/* Div/section styling (3 or more required) */
+section {
+    padding: 20px;
+    background-color: #ffffffd9;
+    border-radius: 12px;
+    margin-bottom: 30px;
+    box-shadow: 0 0 8px rgba(0,0,0,0.15);
+}
+
+header {
+    padding: 20px;
+    background-color: #e8dcc2;
+    border-radius: 12px;
+    text-align: center;
+}
+
+nav {
+    margin-top: 15px;
+}
+/* Side-by-side layout for video + image */
+.two-column {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.two-column .left,
+.two-column .right {
+    flex: 1;
+}
+
+.side-photo {
+    width: 100%;
+    border-radius: 10px;
+    border: 3px solid #bfa98a;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+

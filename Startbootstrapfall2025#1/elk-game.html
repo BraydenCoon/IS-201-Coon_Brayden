@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Elk Number Guessing Game</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- All styles for this app live right here -->
+    <style>
+        body {
+            margin: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: #f5f2ea;
+            color: #333;
+        }
+
+        .game-wrapper {
+            max-width: 700px;
+            margin: 40px auto;
+            padding: 24px 24px 32px;
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            border: 3px solid #c9a46b;
+        }
+
+        h1 {
+            margin-top: 0;
+            text-align: center;
+            font-size: 2.1rem;
+            letter-spacing: 0.05em;
+            color: #5b3b16;
+        }
+
+        h2 {
+            margin-top: 0;
+            font-size: 1.1rem;
+            color: #6b4b22;
+        }
+
+        .tagline {
+            text-align: center;
+            margin-bottom: 18px;
+            font-style: italic;
+            color: #7b5c2e;
+        }
+
+        .rules {
+            background: #fdf6e8;
+            border-radius: 10px;
+            padding: 14px 16px;
+            border-left: 5px solid #c9a46b;
+            margin-bottom: 18px;
+            font-size: 0.95rem;
+        }
+
+        .rules strong {
+            color: #5b3b16;
+        }
+
+        .status-box {
+            background: #f6f0e3;
+            padding: 14px 16px;
+            border-radius: 10px;
+            margin-bottom: 18px;
+        }
+
+        #message {
+            margin: 0 0 6px;
+            font-weight: 600;
+        }
+
+        #attemptsInfo {
+            font-size: 0.9rem;
+            color: #5e5e5e;
+        }
+
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+            margin-bottom: 18px;
+        }
+
+        label {
+            font-size: 0.9rem;
+        }
+
+        #guessInput {
+            flex: 1 1 140px;
+            padding: 10px;
+            font-size: 1rem;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            padding: 10px 18px;
+            border-radius: 6px;
+            border: none;
+            font-size: 0.95rem;
+            cursor: pointer;
+            font-weight: 600;
+            letter-spacing: 0.03em;
+        }
+
+        #guessBtn {
+            background: #5b915b;
+            color: white;
+        }
+
+        #guessBtn:disabled {
+            background: #8b8b8b;
+            cursor: not-allowed;
+        }
+
+        #resetBtn {
+            background: #c9a46b;
+            color: #2b1b07;
+        }
+
+        .history {
+            margin-top: 12px;
+            font-size: 0.9rem;
+        }
+
+        .history-title {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        #historyList {
+            list-style: none;
+            padding-left: 0;
+            margin: 0;
+        }
+
+        #historyList li {
+            padding: 4px 0;
+            border-bottom: 1px dotted #ddd;
+        }
+
+        .back-link {
+            margin-top: 22px;
+            text-align: center;
+        }
+
+        .back-link a {
+            color: #5b3b16;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .back-link a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 600px) {
+            .game-wrapper {
+                margin: 16px;
+                padding: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="game-wrapper">
+    <h1>Elk Number Guessing Game</h1>
+    <p class="tagline">Try to guess the secret elk tag number before the season closes!</p>
+
+    <div class="rules">
+        <strong>How it works:</strong>
+        <ul>
+            <li>I’ve picked a secret number between <strong>1 and 50</strong>.</li>
+            <li>You have <strong>7 attempts</strong> to guess it.</li>
+            <li>I’ll tell you if your guess is too high, too low, or “getting warm.”</li>
+        </ul>
+    </div>
+
+    <div class="status-box">
+        <p id="message">Enter your first guess to start the hunt.</p>
+        <p id="attemptsInfo">Attempts remaining: <span id="attemptsLeft"></span></p>
+    </div>
+
+    <div class="controls">
+        <label for="guessInput">Your guess:</label>
+        <input type="number" id="guessInput" min="1" max="50" />
+        <button id="guessBtn">Fire Shot</button>
+        <button id="resetBtn">New Hunt</button>
+    </div>
+
+    <div class="history">
+        <div class="history-title">Guess log:</div>
+        <ul id="historyList"></ul>
+    </div>
+
+    <div class="back-link">
+        <a href="scratch.html">&larr; Back to Hunting Scratch Page</a>
+    </div>
+</div>
+
+<!-- All JavaScript for this app lives right here -->
+<script>
+    let secretNumber;
+    const maxAttempts = 7;
+    let attemptsRemaining;
+    let gameOver = false;
+
+    const messageEl = document.getElementById("message");
+    const attemptsLeftEl = document.getElementById("attemptsLeft");
+    const guessInput = document.getElementById("guessInput");
+    const guessBtn = document.getElementById("guessBtn");
+    const resetBtn = document.getElementById("resetBtn");
+    const historyList = document.getElementById("historyList");
+
+    function startGame() {
+        secretNumber = Math.floor(Math.random() * 50) + 1; // 1–50
+        attemptsRemaining = maxAttempts;
+        gameOver = false;
+        attemptsLeftEl.textContent = attemptsRemaining;
+        messageEl.textContent = "Enter your first guess to start the hunt.";
+        messageEl.style.color = "#333";
+        historyList.innerHTML = "";
+        guessInput.value = "";
+        guessInput.disabled = false;
+        guessBtn.disabled = false;
+        guessInput.focus();
+        // console.log("Secret:", secretNumber); // for debugging if you want
+    }
+
+    function getHint(guess) {
+        const diff = Math.abs(guess - secretNumber);
+        if (diff === 0) return "Bullseye!";
+        if (diff <= 3) return "🔥 Very warm!";
+        if (diff <= 7) return "🙂 Warm.";
+        return "🥶 Cold.";
+    }
+
+    function handleGuess() {
+        if (gameOver) return;
+
+        const value = Number(guessInput.value);
+
+        if (!value || value < 1 || value > 50) {
+            messageEl.textContent = "Please enter a number between 1 and 50.";
+            messageEl.style.color = "#b1483c";
+            return;
+        }
+
+        attemptsRemaining--;
+        attemptsLeftEl.textContent = attemptsRemaining;
+
+        const hint = getHint(value);
+        let resultText = `You guessed ${value}. `;
+
+        if (value === secretNumber) {
+            resultText += "Bullseye! You tagged the elk!";
+            messageEl.style.color = "#2e7d32";
+            endGame(true, resultText);
+        } else if (attemptsRemaining <= 0) {
+            resultText += `You’re out of attempts. The tag number was ${secretNumber}.`;
+            messageEl.style.color = "#b1483c";
+            endGame(false, resultText);
+        } else {
+            if (value < secretNumber) {
+                resultText += `Too low. ${hint}`;
+            } else {
+                resultText += `Too high. ${hint}`;
+            }
+            messageEl.style.color = "#333";
+            messageEl.textContent = resultText;
+        }
+
+        // Add to history
+        const li = document.createElement("li");
+        li.textContent = resultText;
+        historyList.prepend(li); // newest on top
+
+        guessInput.value = "";
+        guessInput.focus();
+    }
+
+    function endGame(won, finalMessage) {
+        gameOver = true;
+        messageEl.textContent = finalMessage;
+        guessInput.disabled = true;
+        guessBtn.disabled = true;
+    }
+
+    guessBtn.addEventListener("click", handleGuess);
+    guessInput.addEventListener("keydown", function (e) {
+        if (e.key === "Enter") {
+            handleGuess();
+        }
+    });
+
+    resetBtn.addEventListener("click", startGame);
+
+    // Start first game when page loads
+    startGame();
+</script>
+</body>
+</html>
